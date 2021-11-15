@@ -1,12 +1,29 @@
-import React from "react";
-import "../App.css";
+import { useState, useEffect } from "react";
+import { getFetch } from "../components/getFetch";
+import ItemList from "../components/ItemList";
 
-const ItemListContainer = (props) => {
+function ItemListContainer() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getFetch //api Fetch()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+
+    return () => {
+      console.log("clean");
+    };
+  }, []);
+
   return (
-    <>
-      <b style={{backgroundColor: 'gray'}}>Ir a la pagina de contacto {props.greeting}</b>
-    </>
+    <div>
+      {loading ? <h1>Cargando...</h1> : <ItemList items={products} />}
+    </div>
   );
-};
+}
 
 export default ItemListContainer;
