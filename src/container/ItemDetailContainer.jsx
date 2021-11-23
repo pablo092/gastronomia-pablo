@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import ItemDetail from "../components/ItemDetail";
 
 /* Esta función debe retornar la promesa que resuelva con delay */
@@ -32,19 +33,24 @@ function ItemDetailContainer() {
   // Implementar mock invocando a getItems() y utilizando el resolver then
   const [itemDetailResq, setItemDetailResq] = useState();
 
+  const { id } = useParams();
+
   useEffect(() => {
-    getItems.then((res) => {
-      setItemDetailResq(res[0]);
-    });
-  }, []);
+    if (id) {
+      getItems.then((res) => {
+        setItemDetailResq(res.filter(item => item.id === id));
+      })
+      .catch((err) => console.log(err));
+    } else {
+      getItems.then((res) => {
+        setItemDetailResq(res[0]);
+      })
+      .catch((err) => console.log(err));
+    }
+  }, [id]);
+
   return (
-    <>
-      {itemDetailResq === undefined ? (
-        <p>loading</p>
-      ) : (
-        <ItemDetail item={itemDetailResq}/>
-      )}
-    </>
+    <> {itemDetailResq === undefined ? (<p>loading</p>) : (<ItemDetail item={itemDetailResq}/>)} </>
   );
 }
 
