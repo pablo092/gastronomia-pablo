@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ItemDetail from "../components/ItemDetail";
 
+// Al iniciar utilizando un efecto de montaje, debe llamar a un async mock (promise)
+// que en 2 segundos le devuelva un 1 ítem, y lo guarde en un estado propio.
+
 /* Esta función debe retornar la promesa que resuelva con delay */
 const getItems = new Promise((res, rej) => {
   setTimeout(() => {
@@ -26,31 +29,37 @@ const getItems = new Promise((res, rej) => {
   }, 2000);
 });
 
-// Al iniciar utilizando un efecto de montaje, debe llamar a un async mock (promise)
-// que en 2 segundos le devuelva un 1 ítem, y lo guarde en un estado propio.
-
 function ItemDetailContainer() {
   // Implementar mock invocando a getItems() y utilizando el resolver then
-  const [itemDetailResq, setItemDetailResq] = useState();
+  const [itemDetailResq, setItemDetailResq] = useState({});
 
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      getItems.then((res) => {
-        setItemDetailResq(res.filter(item => item.id === id));
-      })
-      .catch((err) => console.log(err));
+      getItems
+        .then((res) => {
+          setItemDetailResq(res.find((producto) => producto.id == id));
+        })
+        .catch((err) => console.log(err));
     } else {
-      getItems.then((res) => {
-        setItemDetailResq(res[0]);
-      })
-      .catch((err) => console.log(err));
+      getItems
+        .then((res) => {
+          setItemDetailResq(res[0]);
+        })
+        .catch((err) => console.log(err));
     }
   }, [id]);
 
   return (
-    <> {itemDetailResq === undefined ? (<p>loading</p>) : (<ItemDetail item={itemDetailResq}/>)} </>
+    <>
+      {" "}
+      {itemDetailResq === undefined ? (
+        <p>loading</p>
+      ) : (
+        <ItemDetail item={itemDetailResq} />
+      )}{" "}
+    </>
   );
 }
 
