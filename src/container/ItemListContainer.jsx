@@ -1,3 +1,4 @@
+import { getFirestore } from "@firebase/firestore";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getFetch } from "../components/getFetch";
@@ -8,6 +9,22 @@ function ItemListContainer() {
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
+
+  // useEffect(()=> {
+  //   setLoading(true);
+  //   const db = getFirestore();
+  //   const itemCollection = db.collection("productos");
+  //   itemCollection.get().then((querySnapshot)=>{
+  //     if(querySnapshot.size === 0) {
+  //       console.log('No reuslts!');
+  //     }
+  //     setProducts(querySnapshot.docs.map(doc => doc.data()));
+  //   }).catch((error) => {
+  //     console.log("Error searching products", error);
+  //   }).finally(() => {
+  //     setLoading(false);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (id) {
