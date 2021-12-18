@@ -15,7 +15,7 @@ const getItems = new Promise((res, rej) => {
         pictureUrl: "http://via.placeholder.com/450",
         description:
           "es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
-        price: "$500",
+        price: 500,
       },
       {
         id: 2,
@@ -23,7 +23,7 @@ const getItems = new Promise((res, rej) => {
         pictureUrl: "http://via.placeholder.com/450",
         description:
           'No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset".',
-        price: "$1000",
+        price: 1000,
       },
     ]);
   }, 2000);
@@ -32,13 +32,15 @@ const getItems = new Promise((res, rej) => {
 function ItemDetailContainer() {
   const [itemDetailResq, setItemDetailResq] = useState({});
   const { id } = useParams();
-  
+
   // Implementar mock invocando a getItems() y utilizando el resolver then
   useEffect(() => {
     if (id) {
       getItems
         .then((res) => {
-          setItemDetailResq(res.find((producto) => producto.id == id));
+          setItemDetailResq(
+            res.find((producto) => producto.id === parseInt(id))
+          );
         })
         .catch((err) => console.log(err));
     } else {
@@ -52,7 +54,11 @@ function ItemDetailContainer() {
 
   return (
     <>
-      {itemDetailResq === undefined ? (<p>loading</p>) : (<ItemDetail item={itemDetailResq} />)}
+      {itemDetailResq === undefined ? (
+        <p>loading</p>
+      ) : (
+        <ItemDetail item={itemDetailResq} />
+      )}
     </>
   );
 }

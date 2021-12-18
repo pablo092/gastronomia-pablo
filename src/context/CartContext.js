@@ -5,7 +5,6 @@ const CartContext = createContext([]);
 export const useCartContext = () => useContext(CartContext);
 
 function CartContextProvider({ children }) {
-
   const [cartList, setCartList] = useState([]);
 
   // Métodos recomendados:
@@ -15,13 +14,27 @@ function CartContextProvider({ children }) {
   // isInCart: (id) => true|false
 
   const addItem = (item, quantity) => {
+    console.log(item.id);
     if (!isInCart(item.id)) {
-        setCartList([...cartList, { item: item, quantity: quantity}]);
+      setCartList([...cartList, { item: item, quantity: quantity }]);
     }
   };
 
+  const editItemQuantity = (id, quantity) => {
+    if (quantity > 0) {
+      let itemIndex = cartList.findIndex((item) => item.item.id === id);
+      let newList  = cartList;
+      newList[itemIndex].quantity = quantity;
+      setCartList([...newList])
+    }else(
+      removeItem(id)
+    )
+  };
+
   const removeItem = (itemId) => {
-    setCartList([cartList.filter(item => item.id !==  itemId)]);
+    let itemIndex = cartList.findIndex((item) => item.item.id === itemId);
+    cartList.splice(itemIndex, 1);
+    setCartList(cartList);
   };
 
   const clear = () => {
@@ -29,7 +42,25 @@ function CartContextProvider({ children }) {
   };
 
   const isInCart = (id) => {
-    return cartList.map(item => item.id).includes(id);
+    return cartList.map((item) => item.id).includes(id);
+  };
+
+  const itemCount = () => {
+    let cont = 0;
+    cartList.forEach((element) => {
+      cont += element.quantity;
+    });
+
+    return cont;
+  };
+
+  const totalPrice = () => {
+    let cont = 0;
+    cartList.forEach((element) => {
+      cont += element.item.price*element.quantity;
+    });
+
+    return cont;
   };
 
   return (
@@ -40,7 +71,11 @@ function CartContextProvider({ children }) {
         removeItem,
         clear,
         isInCart,
-      }}>
+        itemCount,
+        editItemQuantity,
+        totalPrice
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

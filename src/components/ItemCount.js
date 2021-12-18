@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCartContext } from "../context/CartContext";
 
-export default function ItemCount(item) {
+const ItemCount = ({ item, onCustomPress }) => {
   const [count, setCount] = useState(0);
   const { cartList, addItem } = useCartContext();
 
@@ -26,8 +26,9 @@ export default function ItemCount(item) {
 
   const agregarCarrito = () => {
     setCount(count);
-    addItem({item}, count);
-  }
+    addItem(item, count);
+    onCustomPress();
+  };
 
   return (
     <div>
@@ -35,8 +36,10 @@ export default function ItemCount(item) {
       <p>{count}</p>
       <button onClick={restarContador}>-</button>
       <div>
-        <button onClick={() => agregarCarrito}>Agregar Carrito</button>
+        <button onClick={() => agregarCarrito()}>Agregar Carrito</button>
       </div>
     </div>
   );
-}
+};
+
+export default ItemCount;

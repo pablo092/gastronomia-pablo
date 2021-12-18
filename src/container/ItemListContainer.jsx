@@ -1,4 +1,4 @@
-import { getFirestore } from "@firebase/firestore";
+//import { getFirestore } from "@firebase/firestore";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getFetch } from "../components/getFetch";
@@ -30,7 +30,7 @@ function ItemListContainer() {
     if (id) {
       getFetch //api Fetch()
         .then((data) => {
-          setProducts(data.filter(producto => producto.categoria === id));
+          setProducts(data.filter((producto) => producto.categoria === id));
         })
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
@@ -49,7 +49,22 @@ function ItemListContainer() {
   }, [id]);
 
   return (
-    <div>{loading ? <h1>Cargando...</h1> : <ItemList items={products} />}</div>
+    <>
+      {loading ? (
+        <h1>Cargando...</h1>
+      ) : (
+        <div
+          style={{
+            display: "grid",
+            gap: "10rem",
+            gridAutoRows: "20rem",
+            gridTemplateColumns: "repeat(auto-fill,minmax(10rem, 1fr))",
+          }}
+        >
+          <ItemList items={products} />
+        </div>
+      )}
+    </>
   );
 }
 

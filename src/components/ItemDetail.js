@@ -8,9 +8,11 @@ import ItemCount from "./ItemCount";
 const ItemDetail = ({ item }) => {
   const [addPressed, setAddPressed] = useState(false);
 
-  function onAdd() {
+  const onAdd = () => {
     setAddPressed(true);
-  }
+  };
+
+  console.log("=======", item);
 
   // Desarrolla la vista de detalle expandida del producto con su imagen título, descripción y precio
   return (
@@ -21,7 +23,14 @@ const ItemDetail = ({ item }) => {
             <label>{item.title}</label>
           </div>
           <div className="container">
-            <img src={item.pictureUrl} className="w-25" alt="foto" />
+            {item.pictureUrl && (
+              <img
+                src={item.pictureUrl}
+                width={400}
+                height={400}
+                alt="pictureUrl"
+              />
+            )}
             <br />
             <label>{item.descripcion}</label>
           </div>
@@ -34,7 +43,7 @@ const ItemDetail = ({ item }) => {
         {/* Oculto hasta que el usuario seleccione la cantidad y clickee en comprar */}
         {!addPressed ? (
           <div>
-            <ItemCount onClick={onAdd()} item={item} />
+            <ItemCount onCustomPress={() => onAdd()} item={item} />
           </div>
         ) : (
           <Link to={`/cart`}>
