@@ -1,7 +1,6 @@
-//import { getFirestore } from "@firebase/firestore";
+import { getFirestore } from "@firebase/firestore";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getFetch } from "../components/getFetch";
 import ItemList from "../components/ItemList";
 
 function ItemListContainer() {
@@ -10,42 +9,24 @@ function ItemListContainer() {
 
   const { id } = useParams();
 
-  // useEffect(()=> {
-  //   setLoading(true);
-  //   const db = getFirestore();
-  //   const itemCollection = db.collection("productos");
-  //   itemCollection.get().then((querySnapshot)=>{
-  //     if(querySnapshot.size === 0) {
-  //       console.log('No reuslts!');
-  //     }
-  //     setProducts(querySnapshot.docs.map(doc => doc.data()));
-  //   }).catch((error) => {
-  //     console.log("Error searching products", error);
-  //   }).finally(() => {
-  //     setLoading(false);
-  //   });
-  // }, []);
+  useEffect(()=> {
+    setLoading(true);
+    const db = getFirestore();
+    const itemCollection = db.collection("productos");
+    // const highPrice = itemCollection.where('price', '>', 500);
+    // const highPriceShirts = itemCollection.where('price', '>', 500).where('categoryId', '==', 'shrits');
+    // const highPriceShirts = itemCollection.where('price', '>', 500).where('categoryId', '==', 'shrits').limit(20);
 
-  useEffect(() => {
-    if (id) {
-      getFetch //api Fetch()
-        .then((data) => {
-          setProducts(data.filter((producto) => producto.categoria === id));
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    } else {
-      getFetch
-        .then((data) => {
-          setProducts(data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    }
-
-    return () => {
-      console.log("clean");
-    };
+    itemCollection.get().then((querySnapshot)=>{
+      if(querySnapshot.size === 0) {
+        console.log('No reuslts!');
+      }
+      setProducts(querySnapshot.docs.map(doc => doc.data()));
+    }).catch((error) => {
+      console.log("Error searching products", error);
+    }).finally(() => {
+      setLoading(false);
+    });
   }, [id]);
 
   return (
