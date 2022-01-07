@@ -12,11 +12,13 @@ function Item({ item }) {
       }}
     >
       <div className="card-header">
-        {item.name} {item.categoria}
+        {item.title}
       </div>
       <div className="card-body">
         <img src={item.pictureUrl} width={250} height={250} alt="pictureUrl" />
-        {item.price}
+      </div>
+      <div className="card-body">
+        <label>{item.price}</label>
       </div>
       <div className="card-footer">
         <Link to={`/item/${item.id}`}>

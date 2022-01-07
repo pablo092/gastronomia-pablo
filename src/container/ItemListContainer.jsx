@@ -1,4 +1,4 @@
-import { getFirestore } from "@firebase/firestore";
+import { getFirestore } from "../Firebase/firebase";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ItemList from "../components/ItemList";
@@ -9,24 +9,33 @@ function ItemListContainer() {
 
   const { id } = useParams();
 
-  useEffect(()=> {
+  useEffect(() => {
     setLoading(true);
     const db = getFirestore();
     const itemCollection = db.collection("productos");
-    // const highPrice = itemCollection.where('price', '>', 500);
-    // const highPriceShirts = itemCollection.where('price', '>', 500).where('categoryId', '==', 'shrits');
-    // const highPriceShirts = itemCollection.where('price', '>', 500).where('categoryId', '==', 'shrits').limit(20);
 
-    itemCollection.get().then((querySnapshot)=>{
-      if(querySnapshot.size === 0) {
-        console.log('No reuslts!');
-      }
-      setProducts(querySnapshot.docs.map(doc => doc.data()));
-    }).catch((error) => {
-      console.log("Error searching products", error);
-    }).finally(() => {
-      setLoading(false);
-    });
+    itemCollection
+      .get()
+      .then((querySnapshot) => {
+        if (querySnapshot.size === 0) {
+          console.log("No reuslts!");
+        }
+        if (id) {
+          setProducts(
+            querySnapshot.docs
+              .map((doc) => doc.data())
+              .filter((producto) => producto.category === id)
+          );
+        } else {
+          setProducts(querySnapshot.docs.map((doc) => doc.data()));
+        }
+      })
+      .catch((error) => {
+        console.log("Error searching products", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [id]);
 
   return (
@@ -37,7 +46,7 @@ function ItemListContainer() {
         <div
           style={{
             display: "grid",
-            gap: "10rem",
+            gap: "15rem",
             gridAutoRows: "20rem",
             gridTemplateColumns: "repeat(auto-fill,minmax(10rem, 1fr))",
           }}

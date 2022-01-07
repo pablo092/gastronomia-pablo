@@ -14,7 +14,7 @@ const NavBar = () => {
         <div className="navbar-header">
           <LinkContainer to="/">
             <Navbar.Brand href="#" to="/">
-              Gastronomia PH Ecommerce
+              Gastronomia PH
             </Navbar.Brand>
           </LinkContainer>
         </div>
@@ -23,24 +23,24 @@ const NavBar = () => {
             onClick={() => setActive(1)}
             className={active === 1 ? "active" : ""}
           >
-            <LinkContainer to="/category/gorras">
-              <Nav.Link to="category/gorras">Gorras</Nav.Link>
+            <LinkContainer to="/category/estaca">
+              <Nav.Link to="category/estaca">Estaca</Nav.Link>
             </LinkContainer>
           </li>
           <li
             onClick={() => setActive(2)}
             className={active === 2 ? "active" : ""}
           >
-            <LinkContainer to="/category/remeras">
-              <Nav.Link to="category/remeras">Remeras</Nav.Link>
+            <LinkContainer to="/category/parrilla">
+              <Nav.Link to="category/parrilla">Parrilla</Nav.Link>
             </LinkContainer>
           </li>
           <li
             onClick={() => setActive(3)}
             className={active === 3 ? "active" : ""}
           >
-            <LinkContainer to="/category/zapas">
-              <Nav.Link to="category/zapas">Zapas</Nav.Link>
+            <LinkContainer to="/category/gourmet">
+              <Nav.Link to="category/gourmet">Gourmet</Nav.Link>
             </LinkContainer>
           </li>
         </ul>

@@ -3,9 +3,7 @@ import { useCartContext } from "../context/CartContext";
 
 const ItemCount = ({ item, onCustomPress }) => {
   const [count, setCount] = useState(0);
-  const { cartList, addItem } = useCartContext();
-
-  console.log(cartList);
+  const { addItem } = useCartContext();
 
   const sumarContador = () => {
     if (count < 5) {

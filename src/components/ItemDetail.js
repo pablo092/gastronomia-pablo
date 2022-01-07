@@ -12,8 +12,6 @@ const ItemDetail = ({ item }) => {
     setAddPressed(true);
   };
 
-  console.log("=======", item);
-
   // Desarrolla la vista de detalle expandida del producto con su imagen título, descripción y precio
   return (
     <Row>
@@ -32,7 +30,7 @@ const ItemDetail = ({ item }) => {
               />
             )}
             <br />
-            <label>{item.descripcion}</label>
+            <label>{item.description}</label>
           </div>
           <div className="container">
             <label>{item.price}</label>

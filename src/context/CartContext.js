@@ -1,5 +1,4 @@
 import { useState, createContext, useContext } from "react";
-
 const CartContext = createContext([]);
 
 export const useCartContext = () => useContext(CartContext);
@@ -23,12 +22,10 @@ function CartContextProvider({ children }) {
   const editItemQuantity = (id, quantity) => {
     if (quantity > 0) {
       let itemIndex = cartList.findIndex((item) => item.item.id === id);
-      let newList  = cartList;
+      let newList = cartList;
       newList[itemIndex].quantity = quantity;
-      setCartList([...newList])
-    }else(
-      removeItem(id)
-    )
+      setCartList([...newList]);
+    } else removeItem(id);
   };
 
   const removeItem = (itemId) => {
@@ -57,11 +54,12 @@ function CartContextProvider({ children }) {
   const totalPrice = () => {
     let cont = 0;
     cartList.forEach((element) => {
-      cont += element.item.price*element.quantity;
+      cont += element.item.price * element.quantity;
     });
 
     return cont;
   };
+
 
   return (
     <CartContext.Provider
@@ -73,7 +71,7 @@ function CartContextProvider({ children }) {
         isInCart,
         itemCount,
         editItemQuantity,
-        totalPrice
+        totalPrice,
       }}
     >
       {children}

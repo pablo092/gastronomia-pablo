@@ -1,3 +1,7 @@
+# Gastronomia PH
+
+Este proyecto react es una plataforma de e-comerce para realizar el pedido y compra de productos de gastronomia como resultado de proyecto personal de aprendizaje en CODERHOUSE.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
