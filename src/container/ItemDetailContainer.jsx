@@ -13,19 +13,11 @@ function ItemDetailContainer() {
     const itemCollection = db.collection("productos");
 
     itemCollection
+      .where('id', '==' , id)
       .get()
       .then((querySnapshot) => {
-        if (querySnapshot.size === 0) {
-          console.log("No reuslts!");
-        }
         if (id) {
-          const products = querySnapshot.docs.map((doc) => doc.data());
-          console.log(products);
-          products.forEach((item) => {
-            if (item.id === id) {
-              setItemDetailResq(item);
-            }
-          });
+          setItemDetailResq(querySnapshot.docs.map((doc) => doc.data())[0]);
         }
       })
       .catch((error) => {

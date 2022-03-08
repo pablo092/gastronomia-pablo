@@ -10,16 +10,12 @@ function ItemList({ items }) {
   return (
     <ul className="list-group">
       {items.length > 0 ? (
-        items.map((item) => (
-          <>
-            <CartItem key={item.item.id} item={item} />
-          </>
-        ))
+        items.map((item) => <CartItem key={item.item.id} item={item} />)
       ) : (
         <>
-          <p>sin item en la lista</p>
+          <p>Sin items en la lista</p>
           <Link to={`/`}>
-            <Button>go Home</Button>
+            <Button>Go home</Button>
           </Link>
         </>
       )}

@@ -17,9 +17,6 @@ function ItemListContainer() {
     itemCollection
       .get()
       .then((querySnapshot) => {
-        if (querySnapshot.size === 0) {
-          console.log("No reuslts!");
-        }
         if (id) {
           setProducts(
             querySnapshot.docs
@@ -44,12 +41,7 @@ function ItemListContainer() {
         <h1>Cargando...</h1>
       ) : (
         <div
-          style={{
-            display: "grid",
-            gap: "15rem",
-            gridAutoRows: "20rem",
-            gridTemplateColumns: "repeat(auto-fill,minmax(10rem, 1fr))",
-          }}
+          className="ItemListContainer"
         >
           <ItemList items={products} />
         </div>

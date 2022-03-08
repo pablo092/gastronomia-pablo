@@ -9,7 +9,15 @@ function Item({ item }) {
       {item.item.title}
       <span
         onClick={() => {
-          editItemQuantity(item.item.id, item.quantity+1);
+          editItemQuantity(item.item.id, 0);
+        }}
+        className="badge badge-primary badge-pill"
+      >
+        Eliminar item
+      </span>
+      <span
+        onClick={() => {
+          editItemQuantity(item.item.id, item.quantity + 1);
         }}
         className="badge badge-primary badge-pill"
       >
@@ -18,7 +26,7 @@ function Item({ item }) {
       <span className="badge badge-pill">{item.quantity}</span>
       <span
         onClick={() => {
-          editItemQuantity(item.item.id, item.quantity-1);
+          editItemQuantity(item.item.id, item.quantity - 1);
         }}
         className="badge badge-primary badge-pill"
       >

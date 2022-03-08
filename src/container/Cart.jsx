@@ -31,7 +31,6 @@ const Cart = () => {
     };
     orden.total = totalPrice();
     orden.items = cartList.map((cartItem) => {
-      console.log(cartItem);
       const id = cartItem.item.id;
       const nombre = cartItem.item.title;
       const precio = cartItem.item.price;
@@ -52,25 +51,19 @@ const Cart = () => {
 
   return (
     <div
-      style={{
-        width: "40rem",
-      }}
+     className="CartMain"
     >
       <h1>Carrito</h1>
 
       <section>
-        {idOrder !== "" && <label>El id de su orden es; {idOrder}</label>}
+        {idOrder !== "" && <label>El id de su orden es: {idOrder}</label>}
       </section>
-      {cartList.length > 0 ? (<button onClick={() => clear()}>Borrar Carrito</button>): (<></>)}
+      {cartList.length > 0 && <button onClick={() => clear()}>Borrar Carrito</button>}
       <ItemCartList items={cartList} />
-     
+
       {cartList.length > 0 && idOrder === "" && (
         <>
-          <form
-            style={{
-              marginTop: "4rem",
-            }}
-          >
+          <form className="form">
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Name</label>
               <div className="col-sm-10">

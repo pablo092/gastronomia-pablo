@@ -14,11 +14,8 @@ const ItemCount = ({ item, onCustomPress }) => {
   };
 
   const restarContador = () => {
-    if (count > 1) {
+    if (count > 0) {
       setCount(count - 1);
-    } else {
-      alert("¿Eliminar item del carrito?");
-      setCount(0);
     }
   };
 
@@ -33,9 +30,11 @@ const ItemCount = ({ item, onCustomPress }) => {
       <button onClick={sumarContador}>+</button>
       <p>{count}</p>
       <button onClick={restarContador}>-</button>
-      <div>
-        <button onClick={() => agregarCarrito()}>Agregar Carrito</button>
-      </div>
+      {count !== 0 && (
+        <div>
+          <button onClick={() => agregarCarrito()}>Agregar Carrito</button>
+        </div>
+      )}
     </div>
   );
 };

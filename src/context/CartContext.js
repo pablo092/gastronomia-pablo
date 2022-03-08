@@ -13,7 +13,6 @@ function CartContextProvider({ children }) {
   // isInCart: (id) => true|false
 
   const addItem = (item, quantity) => {
-    console.log(item.id);
     if (!isInCart(item.id)) {
       setCartList([...cartList, { item: item, quantity: quantity }]);
     }
@@ -29,9 +28,12 @@ function CartContextProvider({ children }) {
   };
 
   const removeItem = (itemId) => {
-    let itemIndex = cartList.findIndex((item) => item.item.id === itemId);
-    cartList.splice(itemIndex, 1);
-    setCartList(cartList);
+    if (isInCart(itemId)) {
+      alert("¿Eliminar item del carrito?");
+      let itemIndex = cartList.findIndex((item) => item.item.id === itemId);
+      cartList.splice(itemIndex, 1);
+      setCartList([...cartList]);
+    }
   };
 
   const clear = () => {
@@ -39,7 +41,7 @@ function CartContextProvider({ children }) {
   };
 
   const isInCart = (id) => {
-    return cartList.map((item) => item.id).includes(id);
+    return cartList.map((item) => item.item.id).includes(id);
   };
 
   const itemCount = () => {
@@ -59,7 +61,6 @@ function CartContextProvider({ children }) {
 
     return cont;
   };
-
 
   return (
     <CartContext.Provider

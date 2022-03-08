@@ -1,15 +1,13 @@
 import React from "react";
 import { useCartContext } from "../context/CartContext";
 
+const p = { position: "absolute", color: "white", top: 2, right: 10 };
+
 const CartWidget = () => {
   const { itemCount } = useCartContext();
   return (
     <div>
-      {itemCount() > 0 && (
-        <p style={{ position: "absolute", color: "white", top: 2, right: 10 }}>
-          {itemCount()}
-        </p>
-      )}
+      {itemCount() > 0 && <p style={p}>{itemCount()}</p>}
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
